@@ -119,3 +119,7 @@ invalid_df.select(
     "orderid",
     from_json("_rescued_data", MapType(StringType(), StringType())).alias("rescued_fields")
 ).show(truncate=False)
+
+
+# COMMAND ----------
+
