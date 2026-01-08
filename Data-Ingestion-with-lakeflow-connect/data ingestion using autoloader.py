@@ -14,36 +14,12 @@ checkpoint_path = f"/Volumes/{catalog}/{schema}/{volume}/_chk_titanic_autoloader
 bronze_path     = f"/Volumes/{catalog}/{schema}/{volume}/_bronze_titanic_delta"
 
 target_table = "titanic_autoloader_delta"
-``
+
 
 
 # COMMAND ----------
 
-spark.readStream.format("cloudFiles")
-.option("cloudFiles.format", "csv")
-.option("header", "true")
-.option("cloudFiles.rescuedDataColumn", "_rescued")  # captures unexpected fields
-.option("cloudFiles.inferColumnTypes", "false")      # use explicit schema
-.option("cloudFiles.schemaLocation", checkpoint_path) # schema tracking
-.option("cloudFiles.fileNamePattern", "titanic.csv") # optional filter
-.schema(titanic_schema)
-.load(source_dir)
 
-)
-_path)
-.outputMode("append")
-.start(bronze_path)
-)
-
----
-
-### 4) Register Delta Table in Unity Catalog
-```python
-spark.sql(f"""
-CREATE TABLE IF NOT EXISTS {catalog}.{schema}.{target_table}
-USING DELTA
-LOCATION '{bronze_path}'
-""")
 
 # COMMAND ----------
 

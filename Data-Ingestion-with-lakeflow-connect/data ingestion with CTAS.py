@@ -60,7 +60,6 @@ SELECT
   _corrupt_record
 FROM titanic_src_vw
 """)
-``
 
 
 # COMMAND ----------
